@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../AppContext";
 
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  
+  const {getUser} = useGlobalContext();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -25,7 +26,9 @@ export default function Auth() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+
     const { name, email, password, confirmPassword } = formData;
+    
     if (!isLogin && password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
@@ -34,18 +37,15 @@ export default function Auth() {
    try {
     let response;
 
-    if (isLogin) {
-      console.log(email,password)
+    if (isLogin) {  
       response = await api.post('/user/login', { email, password });
     } else {
-      console.log(name,email,password)
-     
       response = await api.post('/user/register', { name, email, password, confirmPassword });
     }
 
-    console.log("Success:", response.data);
-    localStorage.setItem("user", JSON.stringify(response.data.user));
+    getUser();
     navigate("/"); 
+
   } catch (err) {
     const errorMsg = err.response?.data?.message || "Something went wrong.";
     setError(errorMsg);

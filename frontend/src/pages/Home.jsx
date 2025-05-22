@@ -1,24 +1,22 @@
 import { useGlobalContext } from "../AppContext";
-import Vid from "../assets/deliveryVid.mp4";
+import clouds from "../assets/clouds.jpg";
 import { motion } from "framer-motion";
 import CustomerReviewCard from "../components/CustomerReviewCard";
 
 export default function Home() {
   const {} = useGlobalContext();
+
   return (
     <>
     <div className="w-screen  min-h-screen overflow-hidden">
-      <section className="relative w-full h-2/3 sm:h-11/12  md:h-full pt-16 ">
-      <video
-        src={Vid}
+      <section className="relative w-full h-2/3 sm:h-11/12  md:h-full  ">
+      <img
+        src={clouds}
         
-        autoPlay
-        loop
-        muted
         className="w-full  h-full  border-none shadow  object-cover "
         />
        
-       <div className="absolute inset-0 flex flex-col  items-center justify-center text-center ">
+       <div className="absolute inset-0 flex flex-col sm:pb-20 md:pb-36 items-center justify-center text-center ">
           <motion.h1 
           className="text-white text-sm sm:text-3xl md:text-4xl font-bold text-center "
            initial={{ opacity: 0,y:100}}

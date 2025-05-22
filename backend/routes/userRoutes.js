@@ -7,10 +7,10 @@ import {
   logoutUser,
   getUserProfile
 } from '../controllers/userController.js';
-import authMiddleware from "../middleware/authMiddleware.js";
+import {authenticate,authorizeAdmin} from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-router.get("/profile", authMiddleware, getUserProfile);
+router.get("/profile", authenticate, getUserProfile);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/forgot-password', forgotPassword);

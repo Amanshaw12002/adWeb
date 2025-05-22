@@ -8,6 +8,7 @@ import Sidebar from "./components/Sidebar.jsx";
 import Footer from "./components/Footer.jsx";
 import Auth from "./pages/Auth.jsx";
 
+
 function App() {
 
   return (
@@ -19,6 +20,7 @@ function App() {
 
          <Routes>
           <Route path="/" element={<Home/>}/>
+          
           <Route path="/about" element={<About/>}/>
           <Route path="/contact" element={<Contact/>}/>
           <Route path="/services" element={<Services/>}/>

@@ -31,7 +31,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser)
-      return res.status(400).json({ message: 'Email already registered' });
+      return res.status(400).json({ message: 'Email already registered try to login' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hashedPassword });
@@ -73,16 +73,15 @@ export const loginUser = asyncHandler(async (req, res) => {
   
 });
 
-export const logoutUser = asyncHandler(async (req, res) => {
-  res.cookie('jwt', '', {
+export const logoutUser = (req, res) => {
+  res.clearCookie("jwt", {
     httpOnly: true,
-    expires: new Date(0), // Set cookie expiry to the past
-    sameSite: 'strict',
-    secure: process.env.NODE_ENV === 'production',
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
   });
 
-  res.status(200).json({ message: 'Logged out successfully' });
-});
+  res.status(200).json({ message: "Logged out successfully" });
+};
 
 
 
